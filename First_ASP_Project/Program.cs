@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using First_ASP_Project.Data;
 namespace First_ASP_Project
 {
     public class Program
@@ -5,6 +8,8 @@ namespace First_ASP_Project
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddDbContext<First_ASP_ProjectContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("First_ASP_ProjectContext") ?? throw new InvalidOperationException("Connection string 'First_ASP_ProjectContext' not found.")));
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
